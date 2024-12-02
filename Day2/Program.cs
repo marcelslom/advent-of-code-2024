@@ -16,7 +16,7 @@ namespace Day2
         {
             var result = input
                 .Select(x => x.Split(" ").Select(xx => int.Parse(xx)).ToArray())
-                .Count(Part2);
+                .Count(IsSafePart2);
             return result.ToString();
         }
 
@@ -28,7 +28,7 @@ namespace Day2
             return result.ToString();
         }
 
-        private static bool Part2(int[] report)
+        private static bool IsSafePart2(int[] report)
         {
             if (IsSafe(report))
             {
