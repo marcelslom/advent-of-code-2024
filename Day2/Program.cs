@@ -25,6 +25,7 @@ namespace Day2
             var result = input
                 .Select(x => x.Split(" ").Select(xx => int.Parse(xx)).ToArray())
                 .Count(IsSafe);
+
             return result.ToString();
         }
 
@@ -53,33 +54,10 @@ namespace Day2
 
         private static bool IsSafe(int[] report)
         {
-            if (report[1] - report[0] == 0)
-            {
-                return false;
-            }
+            var differences = report
+                .Zip(report.Skip(1), (prev, next) => next - prev);
 
-            var increasing = report[1] - report[0] > 0;
-
-            var anyIsNotChangingInOneDirection = report
-                .Skip(1)
-                .Zip(report.Skip(2), (prev, next) => next - prev)
-                .Any(diff => increasing ? diff <= 0 : diff >= 0);
-
-            if (anyIsNotChangingInOneDirection)
-            {
-                return false;
-            }
-
-            var anyGapIsTooBig = report
-                .Zip(report.Skip(1), (prev, next) => next - prev)
-                .Any(diff => Math.Abs(diff) > 3);
-
-            if (anyGapIsTooBig)
-            {
-                return false;
-            }
-
-            return true;
+            return differences.All(diff => diff >= 1 && diff <= 3) || differences.All(diff => diff >= -3 && diff <= -1);
         }
     }
 }
