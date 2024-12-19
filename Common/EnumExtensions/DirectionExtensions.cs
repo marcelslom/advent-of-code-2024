@@ -10,6 +10,11 @@ namespace Common.EnumExtensions
             return (x: origin.x + x, y: origin.y + y);
         }
 
+        public static bool IsHorizontal(this Direction direction)
+        {
+            return direction == Direction.Left || direction == Direction.Right;
+        }
+
         public static (int x, int y) GetDirectionVector(this Direction direction)
         {
             return direction switch
